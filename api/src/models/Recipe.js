@@ -14,6 +14,9 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    image:{
+      type:DataTypes.TEXT
+    },
     abstract:{
       type: DataTypes.TEXT,
       allowNull: false
@@ -22,7 +25,7 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER
     },
     nutritionlevel:{
-      type:DataTypes.INTEGER
+      type:DataTypes.STRING
     },
     guide:{
       type:DataTypes.TEXT

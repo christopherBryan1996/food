@@ -9,7 +9,10 @@ module.exports = (sequelize)=>{
             allwNull:false,
         },
         name:{
-            type: DataTypes.UUID
+            type: DataTypes.STRING,
+            allwNull:false,
         }
+    },{
+        timestamps:false
     })
 }

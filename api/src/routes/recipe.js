@@ -100,11 +100,12 @@ router.get('/name',async(req,res)=>{
 //GET /recipes/{idReceta}
 router.get('/:id',async(req,res)=>{
     const id = req.params.id
-   
-    let apifood = await axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=0333a70bf12d4836a6086fccb3572746`)
-    let apiResult=apifood.data || []
-    console.log(apiResult)
-    res.send('h')
+    let dbfood = await Recipe.findByPk(id).catch(e=>res.json(e))
+    let apifood =await axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=0333a70bf12d4836a6086fccb3572746`).catch(e=> res.json(e))
+    if(dbfood.name = 'SequelizeDatabaseError'){
+        res.send('error')
+    }
+    //res.json(dbfood|| ' d')
     
 })
 

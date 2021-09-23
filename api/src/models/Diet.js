@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize)=>{
     sequelize.define('diet',{
         id: {
-            type: DataTypes.UUID,
+            type: DataTypes.STRING,
             unique: true,
             primaryKey:true,
             allwNull:false,

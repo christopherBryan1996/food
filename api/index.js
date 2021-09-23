@@ -21,6 +21,7 @@ const server = require('./src/app.js');
 const { conn, Diet } = require('./src/db.js');
 const tiposDieta=['Gluten Free','Ketogenic','Vegetarian','Lacto-Vegetarian','Ovo-Vegetarian','Vegan','Pescetarian','Paleo','Primal','Whole30']
 const  { v4: uuidv4} =require('uuid')
+let  id=0
 
 // Syncing all the models at once.
 conn.sync({ force: false }).then(() => {
@@ -32,8 +33,9 @@ conn.sync({ force: false }).then(() => {
         where:{name:tipo}
       }).then(e=>{
         if(e.length==0){
+          id+=1
           Diet.create({
-            id: uuidv4(),
+            id: id,
             name:tipo
           }).then(()=>console.log('llenado de DB diet'))
           .catch((e)=>console.error(e))

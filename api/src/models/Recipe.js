@@ -17,14 +17,14 @@ module.exports = (sequelize) => {
     image:{
       type:DataTypes.TEXT
     },
-    abstract:{
+    summary:{
       type: DataTypes.TEXT,
       allowNull: false
     },
     weightWatcherSmartPoints:{
       type: DataTypes.INTEGER
     },
-    nutritionlevel:{
+    healthScore:{
       type:DataTypes.STRING
     },
     guide:{

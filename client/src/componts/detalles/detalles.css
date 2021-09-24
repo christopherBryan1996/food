@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css?family=Pacifico&display=swap');
+
+
+.svg {
+  position: absolute;
+  width: 0px;
+  height: 0px;
+}
+
+.wrapper {
+  margin: auto;
+  padding: 15rem 15rem 12rem;
+}
+
+.container {
+  min-width: 500px;
+  max-width: 900px;
+  padding: 2rem;
+  background: #FFF;
+  hyphens: auto;
+}
+
+P {
+  margin: 0;
+  
+  /* & + & {
+    margin-top: 1rem;
+  } */
+}
+
+.header {
+  float: left;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem;
+  margin-top: calc(400px / -2.25 + 2rem);
+  margin-left: calc(400px / -2.25 + 2rem);
+  width: 370px;
+  height: 370px;
+  background-color: steelblue;
+  background-image: 
+    linear-gradient(to right top, rgba(255,255,255,.2) 50%, transparent 0),
+    linear-gradient(hotpink, tomato);
+  background-size: 2rem 100%, 100% 100%;
+  
+  /* // clip-path: polygon(100% 0%, 95% 50%, 100% 100%, 0% 100%, 5% 50%, 0% 0%);
+  // shape-outside: polygon(89% -45%, 86% -18%, 92% 56%, 0% 56%, -0% -45%); */
+  clip-path: url(#my-clip-path);
+  shape-outside: polygon(-10% -10%, 87% -11%, 92% 14%, 88% 44%, 74% 71%, 51% 83%, 18% 92%, -11% 90%);
+  shape-margin: 1rem;
+  text-align: center;
+  color: #FFF;
+}
+
+H1 {
+  font-family: 'Pacifico', cursive;
+  font-weight: normal;
+  font-size: 3rem;
+  line-height: 1.2;
+  text-shadow: 2px 2px 0 rgba(0,0,0,.25);
+}
+
+.img {
+  display: block;
+  max-width: 50%;
+  height: auto;
+  shape-margin: 2rem;
+}
+
+.img--food {
+  float: right;
+  clear: right;
+  margin-top: -3rem;
+  margin-right: -3rem;
+  clip-path: polygon(36% 16%, 45% 0%, 100% 0%, 99% 100%, 72% 100%, 65% 92%, 56% 75%, 57% 62%, 43% 56%, 33% 42%, 37% 26%);
+  shape-outside: polygon(36% 16%, 45% 10%, 100% 10%, 99% 100%, 72% 100%, 65% 92%, 56% 75%, 57% 62%, 43% 56%, 33% 42%, 37% 126%) border-box;
+}
+

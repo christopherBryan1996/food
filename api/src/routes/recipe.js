@@ -4,6 +4,7 @@ const  { v4: uuidv4} =require('uuid')
 const axios = require('axios')
 const {key} = process.env
 const {Recipe, Diet} = require('../db')
+const { json } = require('body-parser')
 //ver todo
 router.get('/',async(req,res)=>{
     let apifood = await axios.get(`https://api.spoonacular.com/recipes/complexSearch/?apiKey=${key}&addRecipeInformation=true`)
@@ -13,7 +14,7 @@ router.get('/',async(req,res)=>{
             model:Diet,
             attributes:['id','name']
         },
-        attributes: ['id','name','image','abstract','points','nutritionlevel','guide']
+        attributes: ['id','title','image','abstract','weightWatcherSmartPoints','nutritionlevel','guide']
     })
     Promise.all([
         apiResul,
@@ -29,25 +30,25 @@ router.get('/',async(req,res)=>{
 })
 //crear
 router.post('/agregar',async(req,res)=>{
-    const {name,image,abstract,points,nutritionlevel,guide,diet}=req.body
+    const {title,image,abstract,weightWatcherSmartPoints,nutritionlevel,guide,diet}=req.body
     let apifood = await axios.get(`https://api.spoonacular.com/recipes/complexSearch/?apiKey=${key}`)
     let apiresul=apifood.data.results
     let estado=apiresul.filter(e=>{
-        return e.title == name
+        return e.title == title
     })
     if(estado.length==0){
         Recipe.findAll({
             where:{
-                name:name
+                title:title
             },
         }).then(async nuevo=>{
             if(nuevo.length==0){
                 let recite= await Recipe.create({
                     id:uuidv4(),
-                    name: name,
+                    title: title,
                     image:image,
                     abstract:abstract,
-                    points:points,
+                    weightWatcherSmartPoints:weightWatcherSmartPoints,
                     nutritionlevel:nutritionlevel,
                     guide:guide
                 })
@@ -66,16 +67,16 @@ router.post('/agregar',async(req,res)=>{
 
 //busqueda por query
 router.get('/name',async(req,res)=>{
-    const name=req.query.name
+    const title=req.query.name
 
     let apifood = await axios.get(`https://api.spoonacular.com/recipes/complexSearch/?apiKey=${key}`)
     let apiresul=apifood.data.results
-    let existeApi= apiresul.filter(e=>e.title == name)
+    let existeApi= apiresul.filter(e=>e.title == title)
 
     if(existeApi.length==0){
         let existedb= await Recipe.findAll({
             where:{
-                name:name
+                title:title
             },
             include:{
                 model:Diet,
@@ -100,12 +101,19 @@ router.get('/name',async(req,res)=>{
 //GET /recipes/{idReceta}
 router.get('/:id',async(req,res)=>{
     const id = req.params.id
-    let dbfood = await Recipe.findByPk(id).catch(e=>res.json(e))
-    let apifood =await axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=0333a70bf12d4836a6086fccb3572746`).catch(e=> res.json(e))
-    if(dbfood.name = 'SequelizeDatabaseError'){
-        res.send('error')
+    const newId= parseInt(id)
+    console.log(newId)
+    console.log(typeof newId)
+    if(typeof newId === 'number' && id >0){
+        console.log('dentro')
+        let apifood =await axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=0333a70bf12d4836a6086fccb3572746`).catch(e=>res.json(e))
+        res.json(apifood)
+    }else{
+        console.log('afuera')
+        let dbfood = await Recipe.findByPk(id).catch(e=>res.json(e))
+        res.json(dbfood|| ' d')
     }
-    //res.json(dbfood|| ' d')
+    
     
 })
 

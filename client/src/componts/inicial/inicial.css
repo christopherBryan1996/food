@@ -1,0 +1,21 @@
+.Inicial{
+    background-image: url('C:\Users\manci\Documents\henry\PI-Food-main\food\client\src\imagenes\posibleInicio2.jpg');
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+    position: absolute;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+span{
+    
+    color: black;
+    font-size: 200px;
+    font-family: 'Brush Script MT', cursive;
+}

@@ -10,7 +10,7 @@ module.exports = (sequelize) => {
       primaryKey:true,//lave primaria
       allowNull:false//sin null
     },
-    name: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -21,7 +21,7 @@ module.exports = (sequelize) => {
       type: DataTypes.TEXT,
       allowNull: false
     },
-    points:{
+    weightWatcherSmartPoints:{
       type: DataTypes.INTEGER
     },
     nutritionlevel:{

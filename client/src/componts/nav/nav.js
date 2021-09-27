@@ -1,26 +1,29 @@
-import React from "react"
 import { useState } from "react"
-import { getBuscar } from "../../actions/index"
+import './nav.css'
+import { Link } from "react-router-dom"
 
-function Nav(props){
+
+
+function Nav(){
     //creamos state para usarlo en input
     const [name, setname] = useState('')
-    //llenar state
-    function onInputChange(e){
+    function onchangeStado(e){
         setname(e.target.value)
     }
-    //mandar lo que tenga el state y limpiar
-    async function handleSubmit(e){
+    console.log(name)
+    function handleSubmit(e){
         e.preventDefault()
-        props.history.push('/home/resetadetalles')
-        setname('')//limpia
+        setname('')//para limpiar 
     }
-    //console.log(props)
     return <div>
-        <form onSubmit={handleSubmit}>
-            <input type='text' value={name} onChange={onInputChange}/>
-            <input type='submit' value='Buscar'/>
-        </form>
+        <ul>
+        <li><Link to='/home'>Home</Link></li>
+        <li><Link to='/home/creacionResetas'>News</Link></li>
+        <li><input type='text' name='buscar' value={name} onChange={onchangeStado} placeholder='Buscar...'/></li>
+        
+        <li onClick={handleSubmit}><Link to={`/home/resetadetalle/${name}`} >buscar</Link></li>
+        
+</ul>
     </div>
 }
 

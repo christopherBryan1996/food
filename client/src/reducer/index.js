@@ -1,8 +1,9 @@
-import { GET_DIETS,GET_RECIPES} from "../actions/constants";
+import { GET_DIETS,GET_RECIPES, GET_TITLE} from "../actions/constants";
 //se inicia los estados 
 var initialState={
     recipes: [],
-    diets: []
+    diets: [],
+    busqueda:[]
 }
 
 export default function reducer(state=initialState, action){
@@ -17,6 +18,11 @@ export default function reducer(state=initialState, action){
             return{
                 ...state,
                 diets: [...action.payload]
+            }
+        case GET_TITLE:
+            return{
+                ...state,
+                busqueda:[action.payload]
             }
         default: 
         return {...state}

@@ -65,6 +65,21 @@ export default function CreateRecipe(){
         alert('Se Agrego la Receta')
     }
     console.log(registro)
+    function muestra(){
+        let die=[]
+        if(registro.diet.length===0){
+            return 'Sin agregar'
+        }else{
+            registro.diet.map(e=>{
+                diets.map(e2=>{
+                    if(e==e2.id){
+                        die.push(e2.name)
+                    }
+                })
+            })
+            return die.join(', ')
+        }
+    }
     return <div className='principal'>
         <div>
             <h1>Muetra de inicio</h1>
@@ -72,7 +87,7 @@ export default function CreateRecipe(){
                     <div className="card u-clearfix">
                         <div className="card-body">
                             <h2 className="card-title">{registro.title}</h2>
-                            <span className="card-description subtle">{}</span>
+                            <span className="card-description subtle">{muestra(registro)}</span>
                             <div className="card-read">Read</div>
                             <span className="card-tag card-circle subtle">P{registro.weightWatcherSmartPoints}</span>
                         </div>
@@ -94,13 +109,13 @@ export default function CreateRecipe(){
                 <input type='text' name='summary' value={registro.summary} onChange={inputChange} required/>
                 <br/>
                 <label htmlFor=''>weightWatcherSmartPoints</label>
-                <input type='number' name='weightWatcherSmartPoints' value={registro.weightWatcherSmartPoints} onChange={inputChange}/>
+                <input type='number' name='weightWatcherSmartPoints' value={registro.weightWatcherSmartPoints} onChange={inputChange} required/>
                 <br/>
                 <label htmlFor=''>healthScorel</label>
-                <input type='text' name='healthScorel' value={registro.healthScorel} onChange={inputChange}/>
+                <input type='text' name='healthScorel' value={registro.healthScorel} onChange={inputChange} required/>
                 <br/>
                 <label htmlFor=''>guide</label>
-                <input type='text' name='guide' value={registro.guide} onChange={inputChange}/>
+                <input type='text' name='guide' value={registro.guide} onChange={inputChange} required/>
                 <input type='submit'/>
                 <p>Agregado: {vistaDiets()}</p>
                 {

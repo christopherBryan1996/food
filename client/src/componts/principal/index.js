@@ -2,10 +2,19 @@ import {useSelector} from 'react-redux'
 import { useState,useEffect } from 'react'
 import './principal.css'
 import {Link} from 'react-router-dom'
+import ReactPaginate from 'react-paginate'
+
 
 export default function Principal(){
     //llamamos todo lo que esta es el estado recipientes
     const recipes = useSelector(state=> state.recipes)
+    //estado donde estamos en la paginacion
+    const [pageNumbrer, setpageNumbrer] = useState(0)
+    //variable para cuantas mostraremos
+    const usersPerPage=9
+    //total de vistas
+    const pagesVisited = pageNumbrer * usersPerPage
+    
     //creamos un estado para ordenarlos
     const [order, setOrder] = useState([])
     // llenamos el estado cada vez que cambie
@@ -102,20 +111,11 @@ export default function Principal(){
         }
         return diets.join(' ')
     }
-    
-    return <div>
-        <div className='order'>
-            {/*creamos los botones de ordenamiento*/}
-            <button onClick={onclikAz} className='bOreder' >A - Z</button>
-            <button onClick={onclikAsPoint}className='bOreder' >++</button>
-            {/* <button> {'<'} </button>
-            <button> {'>'} </button> */}
-            <button onClick={onclikDc} className='bOreder'>Z - A</button>
-            <button onClick={onclikDcPont} className='bOreder' >--</button>
-        </div>
-        {
-            order.map(recipe=>{
-                var key=recipe.id
+    //mostrar limitad
+    const diplayRecipes = order
+        .slice(pagesVisited,pagesVisited+usersPerPage)
+        .map(recipe=>{
+            var key=recipe.id
                 return <div className='card-container'>
                     <div className="card u-clearfix">
                         <div className="card-body">
@@ -128,11 +128,31 @@ export default function Principal(){
                     </div>
                     <div className="card-shadow"></div>
                 </div>
-
-            })
-        }
+        })
+    //total de paginas a mover
+    const pageCount = Math.ceil(order.length /usersPerPage)
+    const changePage =({selected})=>{
+        setpageNumbrer(selected)
+    }
+    return <div>
+        <div className='order'>
+            {/*creamos los botones de ordenamiento*/}
+            <button onClick={onclikAz} className='bOreder' >A - Z</button>
+            <button onClick={onclikAsPoint}className='bOreder' >++</button>
+            {/* <button> {'<'} </button>
+            <button> {'>'} </button> */}
+            <button onClick={onclikDc} className='bOreder'>Z - A</button>
+            <button onClick={onclikDcPont} className='bOreder' >--</button>
+        </div>
+        {diplayRecipes}
         
-
+        <ReactPaginate
+          previousLabel={'previous'}
+          nextLabel={'next'}
+          pageCount={pageCount}
+          onPageChange={changePage}
+          
+        />
   
 
     </div>

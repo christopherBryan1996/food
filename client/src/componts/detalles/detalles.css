@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Pacifico&display=swap');
+
 
 
 .svg {
@@ -76,4 +76,6 @@ H1 {
   clip-path: polygon(36% 16%, 45% 0%, 100% 0%, 99% 100%, 72% 100%, 65% 92%, 56% 75%, 57% 62%, 43% 56%, 33% 42%, 37% 26%);
   shape-outside: polygon(36% 16%, 45% 10%, 100% 10%, 99% 100%, 72% 100%, 65% 92%, 56% 75%, 57% 62%, 43% 56%, 33% 42%, 37% 126%) border-box;
 }
-
+p{
+  font-family: 'poppins';
+}

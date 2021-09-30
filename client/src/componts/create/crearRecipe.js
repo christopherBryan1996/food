@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from 'react-redux';
 import { getDiets } from "../../actions"
 import axios from 'axios'
+import {Link} from 'react-router-dom'
 import './crear.css'
 export default function CreateRecipe(){
     const diets = useSelector(state=> state.diets)
@@ -31,11 +32,6 @@ export default function CreateRecipe(){
         registro.diet.map(e=>{
             if(e==id){
                 return alert('ya se agrego')
-            }else{
-                return setregistro({
-                    ...registro,
-                    diet:[...registro.diet, id ]
-                })
             }
         })
         return setregistro({
@@ -64,7 +60,7 @@ export default function CreateRecipe(){
         await axios.post('http://localhost:3001/api/recipe/agregar',registro)
         alert('Se Agrego la Receta')
     }
-    console.log(registro)
+    
     function muestra(){
         let die=[]
         if(registro.diet.length===0){
@@ -128,7 +124,7 @@ export default function CreateRecipe(){
                     })
                 }
             </form>
-            
+            <Link to='/home/creaciondietas' style={{ textDecoration: 'none', color:'black' }}><h1>Crear dietas</h1></Link>
         </div>
         
     </div>

@@ -9,6 +9,7 @@ import Principal from './componts/principal';
 import { useDispatch } from 'react-redux';
 import Buscar from './componts/buscar/buscar';
 import CreateRecipe from './componts/create/crearRecipe';
+import CrearDiets from './componts/create/crearDiets';
 //iniciamos desde un principio todo lo que traiga la api de recetas 
 function App() {
   const dispatch = useDispatch()
@@ -31,7 +32,7 @@ function App() {
         <CreateRecipe/>
       </Route>
       <Route exact path='/home/creaciondietas'>
-        soy creacion de dietas
+        <CrearDiets/>
       </Route>
       <Route exact path='/home/resetadetalle/:title'>
         <Buscar/>

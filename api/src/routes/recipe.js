@@ -5,6 +5,7 @@ const axios = require('axios')
 const {key} = process.env
 const {Recipe, Diet} = require('../db')
 const { json } = require('body-parser')
+const {Op} = require('sequelize')
 //ver todo
 router.get('/',async(req,res)=>{
     let apifood = await axios.get(`https://api.spoonacular.com/recipes/complexSearch/?apiKey=${key}&addRecipeInformation=true`)
@@ -71,12 +72,12 @@ router.get('/name',async(req,res)=>{
 
     let apifood = await axios.get(`https://api.spoonacular.com/recipes/complexSearch/?apiKey=${key}&addRecipeInformation=true`)
     let apiresul=apifood.data.results
-    let existeApi= apiresul.filter(e=>e.title == title)
+    let existeApi= apiresul.filter(e=>e.title.includes(title))
 
-    if(existeApi.length==0){
-        let existedb= await Recipe.findAll({
+    if(existeApi.length==0 || existeApi.length <0){
+        existedb= await Recipe.findAll({
             where:{
-                title:title
+                title:{[Op.like]:`%${title}%`}
             },
             include:{
                 model:Diet,
@@ -91,7 +92,7 @@ router.get('/name',async(req,res)=>{
         }
     
     }else{
-        res.json({existe:'existe',existeApi})
+        res.json({existe:'existe', existeApi})
     }
    
     

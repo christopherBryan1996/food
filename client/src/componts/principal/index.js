@@ -1,13 +1,15 @@
-import {useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import { useState,useEffect } from 'react'
 import './principal.css'
 import {Link} from 'react-router-dom'
 import ReactPaginate from 'react-paginate'
-
+import { getDiets } from '../../actions'
 
 export default function Principal(){
+    const [tipodD, settipodD] = useState('')
     //llamamos todo lo que esta es el estado recipientes
     const recipes = useSelector(state=> state.recipes)
+    const diets = useSelector(state=> state.diets)
     //estado donde estamos en la paginacion
     const [pageNumbrer, setpageNumbrer] = useState(0)
     //variable para cuantas mostraremos
@@ -18,6 +20,10 @@ export default function Principal(){
     //creamos un estado para ordenarlos
     const [order, setOrder] = useState([])
     // llenamos el estado cada vez que cambie
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getDiets())
+    }, [])
     useEffect(() => {
         setOrder(recipes)
     }, [recipes])
@@ -68,6 +74,7 @@ export default function Principal(){
                 return 1
             }
         })
+        
         setOrder([...aux])
     }
     
@@ -108,9 +115,10 @@ export default function Principal(){
             e.diets.map(e2=>{
                 diets.push(e2.name)
             })
-        }
+        } 
         return diets.join(' ')
     }
+    
     //mostrar limitad
     const diplayRecipes = order
         .slice(pagesVisited,pagesVisited+usersPerPage)
@@ -134,6 +142,33 @@ export default function Principal(){
     const changePage =({selected})=>{
         setpageNumbrer(selected)
     }
+
+    function inChangediets(e){
+        
+        settipodD(e.target.value)
+    }
+    function orderDiet(e){
+        e.preventDefault()
+        let agregados=[]
+        let aux =[...recipes]
+        aux.map(evento=>{
+            if(evento.diets.length!=0){
+                evento.diets.map(diest=>{ 
+                    if(diest.name == tipodD){
+                        agregados.push(evento)
+                    }
+                    if(typeof diest == 'string' ){
+                        if(diest == tipodD.toLowerCase())
+                        agregados.push(evento)
+                    }
+                })
+            }else{
+                
+            }
+        })
+        
+        setOrder([...agregados])
+    }
     return <div>
         <div className='order'>
             {/*creamos los botones de ordenamiento*/}
@@ -143,6 +178,21 @@ export default function Principal(){
             <button> {'>'} </button> */}
             <button onClick={onclikDc} className='bOreder'>Z - A</button>
             <button onClick={onclikDcPont} className='bOreder' >--</button>
+            <p>
+             <form>
+            <label for="favoriteOnly">Selecciona tu favorito:</label>
+            <select name="favoriteOnly" id="favoriteOnly" onChange={inChangediets}>
+                
+                {
+                    diets.map(e=>{
+                        
+                         return <option  >{e.name}</option>
+                    })
+                }
+            </select>
+            <button onClick={orderDiet}>Oredenar</button>
+            </form>
+            </p>
         </div>
         {diplayRecipes}
         
